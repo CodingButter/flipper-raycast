@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# flip-watch — watch source files; on change, build + deploy + launch.
+# If launch fails because the previous app is still running on the device,
+# poll-retry every 2s until you press Back on the Flipper.
+set -uo pipefail
+
+UFBT="${UFBT:-$HOME/.local/bin/ufbt}"
+PORT="${FLIPPER_PORT:-/dev/ttyACM0}"
+WATCH_DIR="${1:-.}"
+
+G=$'\e[32m'; R=$'\e[31m'; Y=$'\e[33m'; C=$'\e[36m'; D=$'\e[2m'; N=$'\e[0m'
+
+free_port() {
+    if [ -e "$PORT" ] && fuser "$PORT" >/dev/null 2>&1; then
+        echo "${Y}[watch] $PORT busy — releasing holder...${N}"
+        fuser -k "$PORT" >/dev/null 2>&1 || true
+        sleep 1
+    fi
+}
+
+deploy() {
+    free_port
+    echo "${D}[watch] $(date +%H:%M:%S) building + deploying...${N}"
+    local out
+    local first=1
+    while true; do
+        out=$("$UFBT" launch 2>&1)
+        if [ $? -eq 0 ]; then
+            echo "${G}[watch] OK — app launched on Flipper${N}"
+            return 0
+        fi
+        # Two distinct failure modes:
+        #   1. Compile error  → no point retrying, surface and bail
+        #   2. App still running on device → "has to be closed manually" → poll until user presses Back
+        if echo "$out" | grep -q "has to be closed manually"; then
+            if [ $first -eq 1 ]; then
+                echo "${C}[watch] press Back on the Flipper to deploy — retrying every 2s...${N}"
+                first=0
+            fi
+            sleep 2
+            continue
+        fi
+        echo "${R}[watch] BUILD FAILED:${N}"
+        echo "$out" | tail -20
+        return 1
+    done
+}
+
+cleanup() { echo; echo "${D}[watch] stopping.${N}"; exit 0; }
+trap cleanup INT TERM
+
+echo "${D}[watch] watching $WATCH_DIR for source/asset changes (Ctrl-C to stop)${N}"
+deploy
+
+while inotifywait -qq -r \
+    -e modify,create,delete,move \
+    --exclude '(/(\.git|\.vscode|dist|build|\.ufbt)/|.*\.(swp|tmp|o|d|elf)$)' \
+    "$WATCH_DIR"
+do
+    # Drain rapid follow-up events from editor save patterns
+    while inotifywait -qq -r -t 1 \
+        -e modify,create,delete,move \
+        --exclude '(/(\.git|\.vscode|dist|build|\.ufbt)/|.*\.(swp|tmp|o|d|elf)$)' \
+        "$WATCH_DIR" 2>/dev/null
+    do :; done
+    deploy
+done

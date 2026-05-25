@@ -1,0 +1,39 @@
+{
+  "_doc": "Manifest for the FapForge asset bundler. `src` paths resolve relative to THIS file.",
+
+  "assets": [
+    { "id": "BRICK",    "kind": "texture",     "src": "../../images/brick.bmp",   "w": 32, "h": 32, "wallIndex": 1 },
+    { "id": "STONE",    "kind": "texture",     "src": "../../images/stone.bmp",   "w": 20, "h": 20, "wallIndex": 2 },
+    { "id": "DOOR",     "kind": "texture",     "src": "../../images/door.bmp",    "w": 20, "h": 20, "wallIndex": 3 },
+
+    { "id": "COIN",     "kind": "spriteSheet", "src": "../../images/coin.bmp",    "w": 16, "h": 16, "frames": 10, "layout": "horizontal" },
+    { "id": "BULLET",   "kind": "spriteSheet", "src": "../../images/bullet.bmp",  "w":  4, "h":  4, "frames": 1 },
+    { "id": "PISTOL",   "kind": "spriteSheet", "src": "../../images/pistol.bmp",  "w": 16, "h": 16, "frames": 1 },
+    { "id": "SMG_ICON", "kind": "spriteSheet", "src": "../../images/smg.bmp",     "w": 16, "h": 16, "frames": 1 },
+    { "id": "SHOTGUN",  "kind": "spriteSheet", "src": "../../images/shotgun.bmp", "w": 16, "h": 16, "frames": 1 },
+    { "id": "KEY",      "kind": "spriteSheet", "src": "../../images/key.bmp",     "w": 16, "h": 16, "frames": 1 },
+    { "id": "GOAL",     "kind": "spriteSheet", "src": "../../images/goal.bmp",    "w": 16, "h": 16, "frames": 1 },
+    { "id": "POTION",   "kind": "spriteSheet", "src": "../../images/potion.bmp",  "w": 16, "h": 16, "frames": 1 },
+    { "id": "ARMOR",    "kind": "spriteSheet", "src": "../../images/armor.bmp",   "w": 16, "h": 16, "frames": 1 },
+    { "id": "TORCH",    "kind": "spriteSheet", "src": "../../images/torch.bmp",   "w": 16, "h": 16, "frames": 1 },
+    { "id": "CHEST",    "kind": "spriteSheet", "src": "../../images/chest.bmp",   "w": 16, "h": 16, "frames": 1 },
+
+    {
+      "_doc": "All 50 skeleton frames packed in one image. Each named view slices 10 frames out.",
+      "id": "SKELETON_SHEET", "kind": "atlas",
+      "src": "../../images/skeleton.bmp", "w": 16, "h": 20, "frames": 50, "layout": "horizontal",
+      "views": [
+        { "id": "SKELETON_FRONT",      "frameStart":  0, "frames": 10 },
+        { "id": "SKELETON_FRONT_LEFT", "frameStart": 10, "frames": 10 },
+        { "id": "SKELETON_RIGHT",      "frameStart": 20, "frames": 10 },
+        { "id": "SKELETON_BACK_LEFT",  "frameStart": 30, "frames": 10 },
+        { "id": "SKELETON_BACK",       "frameStart": 40, "frames": 10 }
+      ]
+    }
+  ],
+
+  "output": {
+    "cpp": "game/assets/assets.cpp",
+    "h":   "game/assets/assets.h"
+  }
+}

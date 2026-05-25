@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# flip — build the current Flipper app, push to the device, launch it.
+# Frees /dev/ttyACM0 first if qFlipper (or anything else) is holding it.
+set -euo pipefail
+
+UFBT="${UFBT:-$HOME/.local/bin/ufbt}"
+PORT="${FLIPPER_PORT:-/dev/ttyACM0}"
+
+free_port() {
+    if [ -e "$PORT" ] && fuser "$PORT" >/dev/null 2>&1; then
+        echo "[flip] $PORT busy — releasing holder..."
+        fuser -k "$PORT" >/dev/null 2>&1 || true
+        sleep 1
+    fi
+}
+
+free_port
+exec "$UFBT" launch "$@"

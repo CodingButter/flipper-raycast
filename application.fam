@@ -1,0 +1,24 @@
+# For details & more options, see documentation/AppManifests.md in firmware repo
+
+App(
+    appid="raycast",  # Must be unique
+    name="App Raycast",  # Displayed in menus
+    apptype=FlipperAppType.EXTERNAL,
+    entry_point="raycast_app",
+    stack_size=2 * 1024,
+    fap_category="Games",
+    # Optional values
+    # fap_version="0.1",
+    fap_icon="raycast.png",  # 10x10 1-bit PNG
+    # fap_description="A simple app",
+    # fap_author="J. Doe",
+    # fap_weburl="https://github.com/user/hello_world",
+    # NOTE: fap_icon_assets removed — our images/ holds BMP source for the
+    # bundler, not ufbt icon assets. The icon compiler chokes on 160-wide
+    # sprite sheets (coin animation). We don't use auto-generated icons.
+
+    # Default source glob `*.c*` accidentally matches `*.cpython-XXX.pyc`
+    # files in scripts/bundler/__pycache__/. Narrow to the extensions we
+    # actually use, and exclude scripts/ entirely from source scanning.
+    sources=["*.cpp", "*.c", "!scripts/**"],
+)
