@@ -11,7 +11,7 @@ ECS::EntityId torch(Vec2 pos) {
     EntityId e = create();
     if (e == NULL_ENTITY) return e;
 
-    g_transforms[e] = { pos, /*z=*/0.35f };     // scale/2 → bottom on floor
+    g_transforms[e] = { pos, /*z=*/0.0f };     // resting on the floor
     g_velocities[e] = { Vec2{0, 0}, 0.0f };
     g_sprites[e]    = { &Game::Assets::TORCH, 0, 0.0f, 0.0f, 0.7f, false, false };
     add(e, CMP_TRANSFORM | CMP_VELOCITY | CMP_ANIM_SPRITE);

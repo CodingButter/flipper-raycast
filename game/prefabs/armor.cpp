@@ -12,7 +12,7 @@ ECS::EntityId armor(Vec2 pos, int amount) {
     EntityId e = create();
     if (e == NULL_ENTITY) return e;
 
-    g_transforms[e]   = { pos, /*z=*/0.25f };   // scale/2 → bottom on floor
+    g_transforms[e]   = { pos, /*z=*/0.0f };   // resting on the floor
     g_velocities[e]   = { Vec2{0, 0}, 0.0f };
     g_sprites[e]      = { &Game::Assets::ARMOR, 0, 0.0f, 0.0f, 0.5f, false, false };
     g_collectibles[e] = { COLLECTIBLE_ARMOR, amount };

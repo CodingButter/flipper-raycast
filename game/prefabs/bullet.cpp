@@ -12,7 +12,7 @@ ECS::EntityId bullet(Vec2 pos, Vec2 vel, int damage) {
     EntityId e = create();
     if (e == NULL_ENTITY) return e;
 
-    g_transforms[e] = { pos,       /*z=*/0.0f };
+    g_transforms[e] = { pos,       /*z=*/0.5f };
     g_velocities[e] = { vel,       /*vz=*/0.0f };
     g_sprites[e]    = { &Game::Assets::BULLET, /*frame=*/0, /*timer=*/0.0f,
                         /*fps=*/0.0f, /*scale=*/0.12f, /*flip=*/false,

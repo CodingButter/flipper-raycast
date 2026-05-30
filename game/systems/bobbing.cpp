@@ -4,8 +4,8 @@
 
 namespace {
 constexpr float BOB_FREQ      = 2.5f;   // radians per second
-constexpr float BOB_AMPLITUDE = 0.08f;  // small hover (was 0.15)
-constexpr float BOB_CENTER_Z  = 0.20f;  // floor-anchored mid-bob (was 0.30)
+constexpr float BOB_AMPLITUDE = 0.04f;  // small hover
+constexpr float BOB_CENTER_Z  = 0.05f;  // grazes the floor at mid-bob
 }
 
 // Advances each weapon-item's bob phase and sets its world z to a

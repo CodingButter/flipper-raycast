@@ -19,7 +19,7 @@ ECS::EntityId weapon_item(Vec2 pos, int weapon_id) {
         default: break;
     }
 
-    g_transforms[e]   = { pos, /*z=*/0.3f };               // sys_bob will animate z
+    g_transforms[e]   = { pos, /*z=*/0.0f };               // sys_bob will animate z
     g_velocities[e]   = { Vec2{0, 0}, 0.0f };
     g_sprites[e]      = { sheet, /*frame=*/0, /*timer=*/0.0f,
                           /*fps=*/0.0f, /*scale=*/0.5f,    // half-wall tall

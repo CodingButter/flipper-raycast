@@ -11,7 +11,7 @@ ECS::EntityId key(Vec2 pos, int key_id) {
     EntityId e = create();
     if (e == NULL_ENTITY) return e;
 
-    g_transforms[e] = { pos, /*z=*/0.3f };
+    g_transforms[e] = { pos, /*z=*/0.0f };
     g_velocities[e] = { Vec2{0, 0}, 0.0f };
     g_sprites[e]    = { &Game::Assets::KEY, /*frame=*/0, /*timer=*/0.0f,
                         /*fps=*/0.0f, /*scale=*/0.35f,

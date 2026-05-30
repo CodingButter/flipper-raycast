@@ -106,7 +106,12 @@ void draw_billboard(Bitmap1& b, const Camera& cam,
     float norm_x      = (lateral / depth) / tan_half_fov;
     int   center_x    = (int)((SCREEN_WIDTH / 2) * (1.0f + norm_x));
     int   sprite_left = center_x - width_px  / 2;
-    int   sprite_top  = (SCREEN_HEIGHT - height_px) / 2 - z_offset_px;
+    // Anchor the sprite's bottom to the projected floor line — the same
+    // line the wall strip bottoms against at this depth. `z` lifts the
+    // sprite above the floor in world units; z=0 → resting on the ground.
+    int wall_strip_h = (int)(SCREEN_HEIGHT / depth);
+    int floor_y      = (SCREEN_HEIGHT + wall_strip_h) / 2;
+    int   sprite_top  = floor_y - height_px - z_offset_px;
 
     const int u_step = (sheet->frame_w << 16) / width_px;
     const int v_step = (sheet->frame_h << 16) / height_px;

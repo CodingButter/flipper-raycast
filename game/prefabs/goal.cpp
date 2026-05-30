@@ -13,7 +13,7 @@ ECS::EntityId goal(Vec2 pos) {
     EntityId e = create();
     if (e == NULL_ENTITY) return e;
 
-    g_transforms[e] = { pos, /*z=*/0.30f };     // scale/2 → bottom on floor
+    g_transforms[e] = { pos, /*z=*/0.0f };     // resting on the floor
     g_velocities[e] = { Vec2{0, 0}, 0.0f };
     g_sprites[e]    = { &Game::Assets::GOAL, /*frame=*/0, /*timer=*/0.0f,
                         /*fps=*/0.0f, /*scale=*/0.6f,

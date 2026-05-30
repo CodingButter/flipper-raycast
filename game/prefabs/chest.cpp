@@ -12,7 +12,7 @@ ECS::EntityId chest(Vec2 pos, int coins, bool has_potion, bool has_armor) {
     EntityId e = create();
     if (e == NULL_ENTITY) return e;
 
-    g_transforms[e] = { pos, /*z=*/0.30f };     // scale/2 → bottom on floor
+    g_transforms[e] = { pos, /*z=*/0.0f };     // resting on the floor
     g_velocities[e] = { Vec2{0, 0}, 0.0f };
     g_sprites[e]    = { &Game::Assets::CHEST, 0, 0.0f, 0.0f, 0.6f, false, false };
     g_chests[e]     = { coins, has_potion, has_armor };

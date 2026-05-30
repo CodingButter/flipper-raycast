@@ -18,7 +18,7 @@
 
 namespace ECS {
 
-constexpr int MAX_ENTITIES = 64;
+constexpr int MAX_ENTITIES = 128;
 
 using EntityId      = int;
 using ComponentMask = uint32_t;

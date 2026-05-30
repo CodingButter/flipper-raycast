@@ -10,8 +10,8 @@ ECS::EntityId potion(Vec2 pos, int amount) {
     EntityId e = create();
     if (e == NULL_ENTITY) return e;
 
-    // z = scale/2 → bottom of sprite sits on the floor (horizon line).
-    g_transforms[e]   = { pos, /*z=*/0.25f };
+    // resting on the floor
+    g_transforms[e]   = { pos, /*z=*/0.0f };
     g_velocities[e]   = { Vec2{0, 0}, 0.0f };
     g_sprites[e]      = { &Game::Assets::POTION, 0, 0.0f, 0.0f, 0.5f, false, false };
     g_collectibles[e] = { COLLECTIBLE_POTION, amount };
